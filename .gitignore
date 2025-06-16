@@ -1,0 +1,21 @@
+# Ignore environment and secret config files
+*.env
+*.txt
+*.json
+*.csv
+
+# Also ignore these types recursively in all subfolders
+**/*.env
+**/*.txt
+**/*.json
+**/*.csv
+
+# Optional: Ignore Python cache and virtualenv
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore virtual environment folders
+venv/
+env/
