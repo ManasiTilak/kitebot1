@@ -82,7 +82,7 @@ def generate_performance_metrics(input_file):
             ])
         writer.writerow(row_data)
 
-    print(f"✅ Appended performance row to {output_file}")
+    print(f"Appended performance row to {output_file}")
 
 
 # Run
@@ -91,4 +91,4 @@ if __name__ == "__main__":
     if os.path.exists(input_csv):
         generate_performance_metrics(input_csv)
     else:
-        print(f"❌ File not found: {input_csv}")
+        print(f"File not found: {input_csv}")

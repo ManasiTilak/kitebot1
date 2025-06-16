@@ -46,7 +46,7 @@ def get_or_create_spreadsheet(sheets, drive):
 # === UPLOAD TO SHEET (overwrite for holdings, append for trades) ===
 def upload_to_sheet(sheets, sheet_id, rows, sheet_name, overwrite=False):
     if not rows:
-        print(f"⚠️ No data to upload to {sheet_name}")
+        print(f"No data to upload to {sheet_name}")
         return
 
     if overwrite:
@@ -55,7 +55,7 @@ def upload_to_sheet(sheets, sheet_id, rows, sheet_name, overwrite=False):
             spreadsheetId=sheet_id,
             range=f"{sheet_name}"
         ).execute()
-        print(f"🧹 Cleared {sheet_name} tab before upload.")
+        print(f"Cleared {sheet_name} tab before upload.")
 
     body = {"values": rows}
     sheets.spreadsheets().values().append(
@@ -65,7 +65,7 @@ def upload_to_sheet(sheets, sheet_id, rows, sheet_name, overwrite=False):
         insertDataOption="INSERT_ROWS",
         body=body
     ).execute()
-    print(f"✅ Uploaded to {sheet_name} tab in Google Sheet")
+    print(f"Uploaded to {sheet_name} tab in Google Sheet")
 
 
 # === FETCH AND SAVE TRADES ===
@@ -77,7 +77,7 @@ def get_trades(kite, filename, date_str):
         writer = csv.writer(file)
         writer.writerow(headers)
         writer.writerows(rows)
-    print(f"✅ Saved trades to {filename}")
+    print(f"Saved trades to {filename}")
     return [headers] + rows
 
 # === FETCH AND SAVE HOLDINGS ===
@@ -101,7 +101,7 @@ def get_holdings(kite, filename, date_str):
         writer = csv.writer(file)
         writer.writerow(headers)
         writer.writerows(rows)
-    print(f"✅ Saved holdings to {filename}")
+    print(f"Saved holdings to {filename}")
     return [headers] + rows
 
 def generate_closed_trades(today_str, sheets, sheet_id):
@@ -110,7 +110,7 @@ def generate_closed_trades(today_str, sheets, sheet_id):
     output_file = f"closed_trades_{datetime.now().strftime('%d%m%y')}.csv"
 
     if not os.path.exists(trades_file) or not os.path.exists(holdings_file):
-        print("⚠️ Trades or holdings file not found.")
+        print("Trades or holdings file not found.")
         return
 
     # Read trades
@@ -155,7 +155,7 @@ def generate_closed_trades(today_str, sheets, sheet_id):
         writer = csv.writer(file)
         writer.writerows(closed_trades)
 
-    print(f"✅ Saved closed trades to {output_file}")
+    print(f"Saved closed trades to {output_file}")
 
     # Upload to Google Sheet (overwrite tab)
     sheets.spreadsheets().values().update(
@@ -165,7 +165,7 @@ def generate_closed_trades(today_str, sheets, sheet_id):
         body={"values": closed_trades}
     ).execute()
 
-    print("✅ Uploaded to Closed Trades tab in Google Sheet")
+    print("Uploaded to Closed Trades tab in Google Sheet")
 
 
 # === MAIN ===
